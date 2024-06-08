@@ -23,8 +23,40 @@ name = "zero2prod"
 [dependencies]
 actix-web = "=4.0.0"
 actix-http = "=3.0.0"
+# We need the optional `derive`feature to use `serde`'s procedural macros:
+# `#[derive(Serialize)]` and `#[derive(Deserialize)]`.
+# The feature is not enabled by default to avoid pulling in
+# unnecessary dependencies for projects that do not need it.
+serde = { version = "1", features = ["derive"] }
+config = "0.14.0"
+
+
+[dependencies.sqlx]
+version = "0.5.7"
+default-features = false
+features = [
+    "runtime-actix-rustls",
+    "macros",
+    "postgres",
+    "uuid",
+    "chrono",
+    "migrate"
+]
+
+# runtime-actix-rustls tells sqlx to use the actix runtime for its futures and rustls as TLS backend;
+# macros gives us access to sqlx::query! and sqlx::query_as!, which we will be using extensively;
+# postgres unlocks Postgres-specific functionality (e.g. non-standard SQL types);
+# uuid adds support for mappingSQL UUIDs to the Uuid type from the uuid crate. We need it to work with our id columns;
+# chrono adds support for mapping SQL timestampz to the DateTime<T> type from the chrono crate. We need it to woork with out subscribed_at_column;
+# migrate gives us access to the same functions used under the hood by sqlx-cli to manage migrations. It will turn out to be useful for our test suite.
+
+[dev-dependencies]
+actix-rt = "2.0"
+reqwest = { version = "0.11" }
+tokio = "1.37.0"
 
 [alias]
 build = "b"
 check = "c"
 test = "t"
+run = "r"
