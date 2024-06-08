@@ -18,10 +18,10 @@ fi
 
 # Check if a custom user has been set, otherwise default to 'postgres'
 # Change user and password back to generic postgres and password before commiting this file.
-DB_USER=${POSTGRES_USER:=fito305}
+DB_USER=${POSTGRES_USER:=postgres}
 
 # Check if a custom password has been set, otherwise default to 'password'
-DB_PASSWORD="${POSTGRES_PASSWORD:=Allapattah123456}"
+DB_PASSWORD="${POSTGRES_PASSWORD:=password}"
 
 # Check if a custom database name has been set, other wise default to 'newsletter'
 DB_NAME="${POSTGRES_DB:=newsletter}"

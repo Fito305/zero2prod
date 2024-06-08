@@ -43,6 +43,8 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
     let client = reqwest::Client::new();
     let body = "name=felipe%20acosta&email=felipe_acosta%40gmail.com";
 
+    println!("{:?}", connection_string);
+
     // Act
     let response = client
         .post(&format!("{}/subscriptions", &app_address))
@@ -59,6 +61,7 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
         .fetch_one(&mut connection)
         .await
         .expect("Failed to fetch save subscription.");
+
 
     assert_eq!(saved.email, "felipe_acosta@gmail.com");
     assert_eq!(saved.name, "felipe acosta");
