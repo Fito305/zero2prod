@@ -29,6 +29,7 @@ actix-http = "=3.0.0"
 # unnecessary dependencies for projects that do not need it.
 serde = { version = "1", features = ["derive"] }
 config = "0.14.0"
+secrecy = "0.8.0"
 
 
 [dependencies.sqlx]

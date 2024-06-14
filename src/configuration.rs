@@ -1,5 +1,6 @@
 use std::convert::TryInto;
 
+
 #[derive(serde::Deserialize, Debug)]
 pub struct Settings {
     pub database: DatabaseSettings,
@@ -17,9 +18,17 @@ pub struct DatabaseSettings {
 
 impl DatabaseSettings {
     pub fn connection_string(&self) -> String {
+        println!("Username: {}", self.username);
+        println!("Password: {}", self.password);
+        println!("Host: {}", self.host);
+        println!("Port: {}", self.port);
+        println!("DBName: {}", self.database_name);
         format!(
             "postgres://{}:{}@{}:{}/{}",
-                self.username, self.password, self.host, self.port, 
+                self.username, 
+                self.password, 
+                self.host, 
+                self.port, 
                 self.database_name
         )
     }
@@ -54,3 +63,4 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     // our Settings type
     settings.try_into()
 }
+
