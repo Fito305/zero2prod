@@ -30,6 +30,8 @@ actix-http = "=3.0.0"
 serde = { version = "1", features = ["derive"] }
 config = "0.14.0"
 secrecy = "0.8.0"
+uuid = { version = "0.8.1", features = ["v4"] }
+chrono = "0.4.15"
 
 
 [dependencies.sqlx]
