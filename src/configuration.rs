@@ -18,11 +18,11 @@ pub struct DatabaseSettings {
 
 impl DatabaseSettings {
     pub fn connection_string(&self) -> String {
-        println!("Username: {}", self.username);
-        println!("Password: {}", self.password);
-        println!("Host: {}", self.host);
-        println!("Port: {}", self.port);
-        println!("DBName: {}", self.database_name);
+        // println!("Username: {}", self.username);
+        // println!("Password: {}", self.password);
+        // println!("Host: {}", self.host);
+        // println!("Port: {}", self.port);
+        // println!("DBName: {}", self.database_name);
         format!(
             "postgres://{}:{}@{}:{}/{}",
                 self.username, 
@@ -31,6 +31,15 @@ impl DatabaseSettings {
                 self.port, 
                 self.database_name
         )
+    }
+    
+    // Ommiting the database_name we connect to the Postgres instance, not a specific logical
+    // database.
+    pub fn connection_string_without_db(&self) -> String {
+        format!(
+            "postgres://{}:{}@{}:{}",
+            self.username, self.password, self.host, self.port
+            )
     }
 }
 
@@ -42,7 +51,7 @@ impl TryInto<Settings> for config::Config {
                                               // value (assumed to be another config::Config) into
                                               // a DatabaseSettings struct?
         let application_port = self.get("application_port")?;
-        println!("{:?}:{:?}", database, application_port);
+        // println!("{:?}:{:?}", database, application_port);
         Ok(Settings {
             database,
             application_port,
